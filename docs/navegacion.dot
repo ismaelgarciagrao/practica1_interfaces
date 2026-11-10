@@ -1,0 +1,23 @@
+// Flujo de navegación. Generar con: dot -Tpng navegacion.dot -o navegacion.png
+digraph Navegacion {
+    rankdir=LR;
+    graph [fontname="DejaVu Sans", fontsize=11, bgcolor="white", pad=0.3, nodesep=0.6, ranksep=1.0];
+    node  [fontname="DejaVu Sans", fontsize=11, shape=box, style="rounded,filled", fillcolor="#FBEFE3", color="#A85400", penwidth=1.2, margin="0.2,0.12"];
+    edge  [fontname="DejaVu Sans", fontsize=9, color="#595959", fontcolor="#333333"];
+
+    menu    [label="Cabecera común\n(logotipo + menú)", fillcolor="#F4F4F2", color="#1A1A1A", style="rounded,dashed,filled"];
+    inicio  [label="INICIO\ncampaña · novedades\nmejor precio"];
+    galeria [label="GALERÍA\ntodos los modelos"];
+    login   [label="ACCESO\ncorreo + contraseña"];
+    error   [label="Mensaje de error\n(rojo + sacudida)", fillcolor="#FCEDEC", color="#B3261E"];
+    bloqueo [label="Acceso bloqueado\n(3 fallos)", fillcolor="#FCEDEC", color="#B3261E"];
+
+    menu -> inicio  [label="Inicio / logotipo"];
+    menu -> galeria [label="Galería"];
+    menu -> login   [label="Acceder"];
+    inicio -> galeria [label="Ver todos los modelos"];
+    login -> error  [label="datos vacíos,\nmal escritos o incorrectos"];
+    error -> login  [label="corregir"];
+    error -> bloqueo [label="3.er fallo"];
+    login -> inicio [label="correcto: sesión iniciada\n(nombre en la cabecera)", color="#1D6B36", fontcolor="#1D6B36"];
+}

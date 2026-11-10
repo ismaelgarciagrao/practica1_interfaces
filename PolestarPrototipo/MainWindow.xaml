@@ -1,0 +1,432 @@
+<Window x:Class="PolestarPrototipo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Polestar · Inicio"
+        Width="1280" Height="820" MinWidth="1000" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI"
+        Background="{StaticResource ColorFondo}">
+
+    <!-- =========================================================================
+         ANIMACIONES (3 Storyboard). Duraciones cortas: acompañan, no distraen.
+         ========================================================================= -->
+    <Window.Resources>
+
+        <!-- 1. Entrada (0,3 s): la pantalla que se muestra aparece con un fundido y un
+             pequeño desplazamiento. Sin TargetName: el código la lanza sobre el panel
+             con Begin(panel). -->
+        <Storyboard x:Key="AnimEntrada">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="12" To="0" Duration="0:0:0.3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <!-- 2. Error (0,4 s): el formulario se "sacude" horizontalmente al fallar el acceso. -->
+        <Storyboard x:Key="AnimError">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ZonaFormulario"
+                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                           Duration="0:0:0.4">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"    Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.05" Value="-10"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.1"  Value="10"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.15" Value="-8"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"  Value="8"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.25" Value="-5"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.3"  Value="5"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.35" Value="-2"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.4"  Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <!-- 3. Banner (0,6 s): el texto entra desde la izquierda y el coche desde la derecha.
+             Se lanza solo desde XAML con un EventTrigger (Loaded) en ZonaBanner. -->
+        <Storyboard x:Key="AnimBanner">
+            <DoubleAnimation Storyboard.TargetName="ZonaBannerTexto" Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.6"/>
+            <DoubleAnimation Storyboard.TargetName="ZonaBannerTexto"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="-30" To="0" Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="ZonaBannerImagen" Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.6"/>
+            <DoubleAnimation Storyboard.TargetName="ZonaBannerImagen"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="60" To="0" Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- cabecera común -->
+            <RowDefinition Height="*"/>    <!-- pantallas -->
+            <RowDefinition Height="Auto"/> <!-- pie -->
+        </Grid.RowDefinitions>
+
+        <!-- =====================================================================
+             CABECERA COMÚN: logotipo + menú (igual en las 3 pantallas)
+             ===================================================================== -->
+        <Border Grid.Row="0" Background="{StaticResource ColorCabecera}">
+            <Grid Margin="24,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="BtnLogo" Grid.Column="0" Style="{StaticResource BotonLogo}"
+                        Click="BtnLogo_Click" ToolTip="Ir a Inicio"
+                        AutomationProperties.Name="Polestar. Ir a Inicio">
+                    <Image Source="Imagenes/logo.png" Height="34"/>
+                </Button>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="32,0,0,0">
+                    <Button x:Name="BtnInicio" Content="_Inicio" Style="{StaticResource BotonMenu}"
+                            Click="BtnInicio_Click" ToolTip="Novedades y ofertas (Alt+I)"/>
+                    <Button x:Name="BtnGaleria" Content="_Galería" Style="{StaticResource BotonMenu}"
+                            Click="BtnGaleria_Click" ToolTip="Todos los modelos (Alt+G)"/>
+                </StackPanel>
+
+                <!-- Nombre del cliente: solo visible con la sesión iniciada -->
+                <TextBlock x:Name="TxtUsuario" Grid.Column="3" Visibility="Collapsed"
+                           VerticalAlignment="Center" Margin="0,0,8,0" FontSize="14"
+                           Foreground="{StaticResource ColorTextoSobreOscuro}"/>
+
+                <Button x:Name="BtnAcceder" Grid.Column="4" Content="_Acceder" Style="{StaticResource BotonMenu}"
+                        Click="BtnAcceder_Click" ToolTip="Área de clientes (Alt+A)"/>
+            </Grid>
+        </Border>
+
+        <!-- =====================================================================
+             PANTALLAS: 3 paneles en la misma celda, uno encima del otro.
+             Solo uno está Visible; el código cambia la visibilidad.
+             ===================================================================== -->
+        <ScrollViewer x:Name="ZonaContenido" Grid.Row="1" VerticalScrollBarVisibility="Auto" IsTabStop="False">
+            <Grid MaxWidth="1040" Margin="40,32,40,12">
+
+                <!-- ============================ INICIO ============================ -->
+                <StackPanel x:Name="ZonaInicio" Visibility="Visible">
+                    <StackPanel.RenderTransform>
+                        <TranslateTransform/>
+                    </StackPanel.RenderTransform>
+
+                    <!-- Banner fijo de campaña -->
+                    <Border x:Name="ZonaBanner" Background="{StaticResource ColorBanner}" CornerRadius="4"
+                            MinHeight="280" Margin="0,0,20,36" ClipToBounds="True">
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard Storyboard="{StaticResource AnimBanner}"/>
+                            </EventTrigger>
+                        </Border.Triggers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="420"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel x:Name="ZonaBannerTexto" Grid.Column="0" VerticalAlignment="Center" Margin="40,30,20,30">
+                                <StackPanel.RenderTransform>
+                                    <TranslateTransform/>
+                                </StackPanel.RenderTransform>
+                                <TextBlock Text="CAMPAÑA DE INVIERNO" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="{StaticResource ColorNaranja}" Margin="0,0,0,10"/>
+                                <TextBlock Text="Pásate al eléctrico este invierno" Style="{StaticResource TextoTitulo}"
+                                           Foreground="{StaticResource ColorBlanco}"/>
+                                <TextBlock Style="{StaticResource TextoNormal}" FontSize="16"
+                                           Foreground="{StaticResource ColorTextoSobreOscuro}" Margin="0,4,0,22"
+                                           Text="Hasta el 31 de enero: un año de carga gratuita y la primera revisión incluida en toda la gama."/>
+                                <Button x:Name="BtnVerModelos" Content="Ver todos los modelos"
+                                        Style="{StaticResource BotonPrimario}" Click="BtnVerModelos_Click"/>
+                            </StackPanel>
+
+                            <Image x:Name="ZonaBannerImagen" Grid.Column="1" Source="Imagenes/polestar_blanco.png"
+                                   Stretch="Uniform" Margin="0,20,30,20"
+                                   AutomationProperties.Name="Dibujo provisional de un coche blanco">
+                                <Image.RenderTransform>
+                                    <TranslateTransform/>
+                                </Image.RenderTransform>
+                            </Image>
+                        </Grid>
+                    </Border>
+
+                    <!-- Novedades (3 tarjetas) -->
+                    <TextBlock Text="Novedades" Style="{StaticResource TextoTitulo}"/>
+                    <TextBlock Text="Los últimos modelos en llegar a España." Style="{StaticResource TextoSecundario}"
+                               Margin="0,0,0,16"/>
+                    <WrapPanel>
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_cobre.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 5"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 5" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="Gran turismo eléctrico · 4 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 650 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 119.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_blanco.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 4"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 4" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="SUV coupé eléctrico · 5 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 600 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 62.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_azul.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 3"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 3" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="SUV eléctrico · 5 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 630 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 82.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+
+                    <!-- Mejor precio (2 tarjetas con oferta estacional) -->
+                    <TextBlock Text="Mejor precio" Style="{StaticResource TextoTitulo}" Margin="0,20,0,6"/>
+                    <TextBlock Text="Ofertas de invierno válidas hasta el 31 de enero." Style="{StaticResource TextoSecundario}"
+                               Margin="0,0,0,16"/>
+                    <WrapPanel>
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_plata.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 2 Single motor"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}" Background="{StaticResource ColorAcento}">
+                                        <TextBlock Text="OFERTA · AHORRAS 5.000 €"/>
+                                    </Border>
+                                    <TextBlock Text="Polestar 2 Single motor" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="Berlina eléctrica · 5 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Antes 49.900 €" Style="{StaticResource TextoSecundario}" TextDecorations="Strikethrough"/>
+                                    <TextBlock Text="Ahora 44.900 €" Style="{StaticResource TextoPrecio}" Margin="0,2,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_negro.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 2 Dual motor"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}" Background="{StaticResource ColorAcento}">
+                                        <TextBlock Text="OFERTA · AHORRAS 4.000 €"/>
+                                    </Border>
+                                    <TextBlock Text="Polestar 2 Dual motor" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="Berlina eléctrica · tracción total" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Antes 55.900 €" Style="{StaticResource TextoSecundario}" TextDecorations="Strikethrough"/>
+                                    <TextBlock Text="Ahora 51.900 €" Style="{StaticResource TextoPrecio}" Margin="0,2,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
+
+                <!-- ============================ GALERÍA ============================ -->
+                <StackPanel x:Name="ZonaGaleria" Visibility="Collapsed">
+                    <StackPanel.RenderTransform>
+                        <TranslateTransform/>
+                    </StackPanel.RenderTransform>
+
+                    <TextBlock Text="Galería de modelos" Style="{StaticResource TextoTitulo}"/>
+                    <TextBlock Text="Toda la gama disponible en España: 6 modelos." Style="{StaticResource TextoSecundario}"
+                               Margin="0,0,0,16"/>
+
+                    <WrapPanel>
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_plata.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 2 Single motor"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}" Background="{StaticResource ColorAcento}">
+                                        <TextBlock Text="OFERTA"/>
+                                    </Border>
+                                    <TextBlock Text="Polestar 2 Single motor" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="Berlina eléctrica · color plata" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 650 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 44.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_negro.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 2 Dual motor"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}" Background="{StaticResource ColorAcento}">
+                                        <TextBlock Text="OFERTA"/>
+                                    </Border>
+                                    <TextBlock Text="Polestar 2 Dual motor" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="Berlina eléctrica · color negro" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 590 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 51.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_azul.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 3"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 3" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="SUV eléctrico · color azul" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 630 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 82.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_verde.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 3 Performance"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 3 Performance" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="SUV eléctrico deportivo · color verde" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 560 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 92.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_blanco.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 4"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 4" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="SUV coupé eléctrico · color blanco" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 600 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 62.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Tarjeta}">
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorFondoImagen}" CornerRadius="4,4,0,0">
+                                    <Image Source="Imagenes/polestar_cobre.png" Style="{StaticResource ImagenTarjeta}"
+                                           AutomationProperties.Name="Dibujo provisional del Polestar 5"/>
+                                </Border>
+                                <StackPanel Margin="18,16,18,18">
+                                    <Border Style="{StaticResource Etiqueta}"><TextBlock Text="NUEVO"/></Border>
+                                    <TextBlock Text="Polestar 5" Style="{StaticResource TextoSeccion}"/>
+                                    <TextBlock Text="Gran turismo eléctrico · color cobre" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
+                                    <TextBlock Text="Autonomía: hasta 650 km" Style="{StaticResource TextoNormal}"/>
+                                    <TextBlock Text="Desde 119.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
+
+                <!-- ============================ ACCESO ============================ -->
+                <StackPanel x:Name="ZonaLogin" Visibility="Collapsed">
+                    <StackPanel.RenderTransform>
+                        <TranslateTransform/>
+                    </StackPanel.RenderTransform>
+
+                    <Border x:Name="ZonaFormulario" Style="{StaticResource Tarjeta}" Width="440"
+                            HorizontalAlignment="Center" Margin="0,8,0,20" Padding="36,32">
+                        <Border.RenderTransform>
+                            <TranslateTransform/>
+                        </Border.RenderTransform>
+                        <StackPanel>
+                            <TextBlock Text="Acceso de clientes" Style="{StaticResource TextoTitulo}"/>
+                            <TextBlock Text="Introduce el correo y la contraseña de tu cuenta Polestar."
+                                       Style="{StaticResource TextoSecundario}"/>
+
+                            <Label Content="_Correo electrónico" Target="{Binding ElementName=TxtCorreo}"
+                                   Style="{StaticResource TextoEtiquetaCampo}"/>
+                            <TextBox x:Name="TxtCorreo" Style="{StaticResource CampoTexto}" MaxLength="100"
+                                     TextChanged="TxtCorreo_TextChanged"
+                                     AutomationProperties.Name="Correo electrónico"
+                                     AutomationProperties.HelpText="Ejemplo: nombre@dominio.es"/>
+                            <TextBlock Text="Ejemplo: nombre@dominio.es" Style="{StaticResource TextoSecundario}" Margin="0,4,0,0"/>
+
+                            <Label Content="Con_traseña" Target="{Binding ElementName=TxtContrasena}"
+                                   Style="{StaticResource TextoEtiquetaCampo}"/>
+                            <PasswordBox x:Name="TxtContrasena" Style="{StaticResource CampoContrasena}" MaxLength="64"
+                                         PasswordChanged="TxtContrasena_PasswordChanged"
+                                         AutomationProperties.Name="Contraseña"/>
+
+                            <!-- Único mensaje de error: oculto hasta que hace falta -->
+                            <Border x:Name="ZonaError" Visibility="Collapsed" Margin="0,16,0,0" Padding="12,10"
+                                    CornerRadius="3" BorderThickness="1"
+                                    Background="{StaticResource ColorFondoError}" BorderBrush="{StaticResource ColorError}">
+                                <TextBlock x:Name="TxtError" Style="{StaticResource TextoNormal}"
+                                           Foreground="{StaticResource ColorError}" FontWeight="SemiBold"/>
+                            </Border>
+
+                            <Button x:Name="BtnEntrar" Content="_Entrar" Style="{StaticResource BotonPrimario}"
+                                    HorizontalAlignment="Stretch" Margin="0,22,0,0" IsDefault="True"
+                                    Click="BtnEntrar_Click"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+            </Grid>
+        </ScrollViewer>
+
+        <!-- =====================================================================
+             PIE
+             ===================================================================== -->
+        <Border Grid.Row="2" Background="{StaticResource ColorTexto}" Padding="24,10">
+            <TextBlock FontSize="12" Foreground="{StaticResource ColorTextoSobreOscuro}" TextWrapping="Wrap"
+                       Text="Prototipo académico · Interfaces de Usuario (UMH) · El logotipo, las imágenes, los precios y los datos son ilustrativos y no oficiales."/>
+        </Border>
+    </Grid>
+</Window>

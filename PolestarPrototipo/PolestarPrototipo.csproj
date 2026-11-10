@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Proyecto de aplicación WPF (creado igual que la plantilla "Aplicación WPF" de Blend / Visual Studio) -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>PolestarPrototipo</RootNamespace>
+    <AssemblyName>PolestarPrototipo</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- Las imágenes (generadas con herramientas/generar_imagenes.py) se incluyen como Resource:
+       quedan dentro del .exe y se usan en XAML con rutas como "Imagenes/logo.png". -->
+  <ItemGroup>
+    <None Remove="Imagenes\**" />
+    <Resource Include="Imagenes\*.png" />
+  </ItemGroup>
+
+</Project>
