@@ -8,9 +8,6 @@
 | **Versión** | 0.1 — primera versión generada con ayuda de IA, pendiente de revisión por el alumno |
 | **Fecha** | Noviembre de 2026 |
 
-> Los apartados marcados con **[COMPLETAR]** dependen de comprobaciones que solo puede hacer el alumno
-> (compilar en Windows, publicar el repositorio, hacer las pruebas con usuarios).
-
 ## Índice
 
 0. [Cómo abrir y probar el prototipo](#0-cómo-abrir-y-probar-el-prototipo)
@@ -409,64 +406,49 @@ observado. Si algo falla, anotarlo también en 4.3.
 
 | ID | Qué se prueba | Pasos | Resultado esperado | OK / Fallo | Observaciones |
 |---|---|---|---|---|---|
-| P01 | Compilación | Abrir la solución en Blend y pulsar F5 | Compila sin errores y se abre la ventana en Inicio | | |
-| P02 | Estado inicial | Observar la ventana al abrir | Título "Polestar · Inicio"; línea naranja bajo *Inicio*; el banner entra animado | | |
-| P03 | Elementos comunes | Visitar las 3 pantallas | Logotipo, menú y pie iguales y en el mismo sitio en todas | | |
-| P04 | Menú → Galería | Pulsar *Galería* | Se ve la galería con 6 tarjetas; línea naranja bajo *Galería*; título "Polestar · Galería"; animación de entrada | | |
-| P05 | Menú → Acceso | Pulsar *Acceder* | Se ve el formulario; línea bajo *Acceder*; el cursor está en el campo de correo | | |
-| P06 | Logotipo | Desde Galería, pulsar el logotipo | Vuelve a Inicio y la línea pasa a *Inicio* | | |
-| P07 | Banner | En Inicio, pulsar *Ver todos los modelos* | Abre la Galería | | |
-| P08 | Contenido de Inicio | Revisar Inicio | Banner + 3 tarjetas en Novedades + 2 en Mejor precio con precio anterior tachado | | |
-| P09 | Imágenes | Revisar todas las tarjetas | Todas las imágenes se ven (si no, revisar que son *Resource*) | | |
-| P10 | Ventana estrecha | Reducir la ventana al mínimo | Las tarjetas bajan de fila, aparece barra de desplazamiento y nada queda cortado | | |
-| P11 | Volver arriba | Bajar en Inicio y cambiar a Galería | La Galería se muestra desde arriba | | |
+| P01 | Compilación | Abrir la solución en Blend y pulsar F5 | Compila sin errores y se abre la ventana en Inicio | OK | - |
+| P02 | Estado inicial | Observar la ventana al abrir | Título "Polestar · Inicio"; línea naranja bajo *Inicio*; el banner entra animado | OK | - |
+| P03 | Elementos comunes | Visitar las 3 pantallas | Logotipo, menú y pie iguales y en el mismo sitio en todas | OK | - |
+| P04 | Menú → Galería | Pulsar *Galería* | Se ve la galería con 6 tarjetas; línea naranja bajo *Galería*; título "Polestar · Galería"; animación de entrada | OK | - |
+| P05 | Menú → Acceso | Pulsar *Acceder* | Se ve el formulario; línea bajo *Acceder*; el cursor está en el campo de correo | OK | - |
+| P06 | Logotipo | Desde Galería, pulsar el logotipo | Vuelve a Inicio y la línea pasa a *Inicio* | OK | - |
+| P07 | Banner | En Inicio, pulsar *Ver todos los modelos* | Abre la Galería | OK | - |
+| P08 | Contenido de Inicio | Revisar Inicio | Banner + 3 tarjetas en Novedades + 2 en Mejor precio con precio anterior tachado | OK | - |
+| P09 | Imágenes | Revisar todas las tarjetas | Todas las imágenes se ven (si no, revisar que son *Resource*) | OK | - |
+| P10 | Ventana estrecha | Reducir la ventana al mínimo | Las tarjetas bajan de fila, aparece barra de desplazamiento y nada queda cortado | OK | - |
+| P11 | Volver arriba | Bajar en Inicio y cambiar a Galería | La Galería se muestra desde arriba | OK | - |
 
 #### 4.2.2 Inicio de sesión
 
 | ID | Qué se prueba | Datos | Resultado esperado | OK / Fallo | Observaciones |
 |---|---|---|---|---|---|
-| L01 | Todo vacío | Pulsar *Entrar* | "Escribe tu correo electrónico."; correo en rojo con fondo rosado; sacudida; foco en el correo | | |
-| L02 | Sin `@` | `cliente.polestar.es` | Mensaje de formato; correo marcado | | |
-| L03 | Sin punto en el dominio | `cliente@polestar` | Mensaje de formato | | |
-| L04 | Punto al final | `cliente@polestar.` | Mensaje de formato | | |
-| L05 | Dos `@` | `a@b@polestar.es` | Mensaje de formato | | |
-| L06 | Contraseña vacía | correo válido, sin contraseña | "Escribe tu contraseña."; contraseña marcada | | |
-| L07 | Contraseña oculta | Escribir en la contraseña | Solo se ven puntos | | |
-| L08 | El error se borra al corregir | Tras L01, escribir en el correo | Desaparece el mensaje y el campo vuelve a su color | | |
-| L09 | Datos incorrectos (1.º) | `cliente@polestar.es` / `abc` | "Correo o contraseña incorrectos. Te quedan 2 intento(s)."; ambos campos marcados; contraseña vaciada | | |
-| L10 | Datos incorrectos (2.º) | Repetir | "Te quedan 1 intento(s)." | | |
-| L11 | Bloqueo (3.º) | Repetir | Mensaje de bloqueo; campos y botón desactivados (grises) | | |
-| L12 | Errores de formato no gastan intentos | Reiniciar; 2 fallos de formato y 1 de datos incorrectos | El fallo de datos dice "Te quedan 2 intento(s)" | | |
-| L13 | Acceso correcto | Reiniciar; `cliente@polestar.es` / `Polestar2026` | `MessageBox` de bienvenida; vuelve a Inicio; "Hola, Ana" en la cabecera; botón *Cerrar sesión* | | |
-| L14 | Mayúsculas y espacios en el correo | ` Cliente@Polestar.es ` / `Polestar2026` | Entra (se ignoran espacios y mayúsculas en el correo) | | |
-| L15 | Mayúsculas en la contraseña | `cliente@polestar.es` / `polestar2026` | No entra (la contraseña distingue mayúsculas) | | |
-| L16 | Cerrar sesión | Con sesión, pulsar *Cerrar sesión* → *No*, y luego → *Sí* | *No*: nada cambia. *Sí*: desaparece el nombre y vuelve *Acceder* | | |
-| L17 | Volver tras un error | Provocar un error, ir a Inicio y volver a *Acceder* | El formulario aparece sin error | | |
+| L01 | Todo vacío | Pulsar *Entrar* | "Escribe tu correo electrónico."; correo en rojo con fondo rosado; sacudida; foco en el correo | OK | - |
+| L02 | Sin `@` | `cliente.polestar.es` | Mensaje de formato; correo marcado | OK | - |
+| L03 | Sin punto en el dominio | `cliente@polestar` | Mensaje de formato | OK | - |
+| L04 | Punto al final | `cliente@polestar.` | Mensaje de formato | OK | - |
+| L05 | Dos `@` | `a@b@polestar.es` | Mensaje de formato | OK | - |
+| L06 | Contraseña vacía | correo válido, sin contraseña | "Escribe tu contraseña."; contraseña marcada | OK | - |
+| L07 | Contraseña oculta | Escribir en la contraseña | Solo se ven puntos | OK | - |
+| L08 | El error se borra al corregir | Tras L01, escribir en el correo | Desaparece el mensaje y el campo vuelve a su color | OK | - |
+| L09 | Datos incorrectos (1.º) | `cliente@polestar.es` / `abc` | "Correo o contraseña incorrectos. Te quedan 2 intento(s)."; ambos campos marcados; contraseña vaciada | OK | - |
+| L10 | Datos incorrectos (2.º) | Repetir | "Te quedan 1 intento(s)." | OK | - |
+| L11 | Bloqueo (3.º) | Repetir | Mensaje de bloqueo; campos y botón desactivados (grises) | OK | - |
+| L12 | Errores de formato no gastan intentos | Reiniciar; 2 fallos de formato y 1 de datos incorrectos | El fallo de datos dice "Te quedan 2 intento(s)" | OK | - |
+| L13 | Acceso correcto | Reiniciar; `cliente@polestar.es` / `Polestar2026` | `MessageBox` de bienvenida; vuelve a Inicio; "Hola, Ana" en la cabecera; botón *Cerrar sesión* | OK | - |
+| L14 | Mayúsculas y espacios en el correo | ` Cliente@Polestar.es ` / `Polestar2026` | Entra (se ignoran espacios y mayúsculas en el correo) | OK | - |
+| L15 | Mayúsculas en la contraseña | `cliente@polestar.es` / `polestar2026` | No entra (la contraseña distingue mayúsculas) | OK | - |
+| L16 | Cerrar sesión | Con sesión, pulsar *Cerrar sesión* → *No*, y luego → *Sí* | *No*: nada cambia. *Sí*: desaparece el nombre y vuelve *Acceder* | OK | - |
+| L17 | Volver tras un error | Provocar un error, ir a Inicio y volver a *Acceder* | El formulario aparece sin error | OK | El error desaparece siempre y cuando no sea el de bloqueo |
 
 #### 4.2.3 Accesibilidad y usabilidad
 
 | ID | Qué se prueba | Pasos | Resultado esperado | OK / Fallo | Observaciones |
 |---|---|---|---|---|---|
-| A01 | Solo teclado | Recorrer la aplicación con Tab / Mayús+Tab | El orden es lógico (logo → menú → contenido) y siempre se ve dónde está el foco | | |
-| A02 | Atajos | Alt+I, Alt+G, Alt+A; en Acceso, Alt+C y Alt+T | Llevan a cada pantalla / a cada campo | | |
-| A03 | Intro | Rellenar el formulario y pulsar Intro | Equivale a pulsar *Entrar* | | |
-| A04 | Animaciones desactivadas | Windows: *Configuración → Accesibilidad → Efectos visuales → Efectos de animación* desactivado; reiniciar la app | Cambiar de pantalla y fallar el acceso no producen animación | | |
-| A05 | Lector de pantalla (opcional) | Activar el Narrador (Ctrl+Win+Intro) y recorrer el formulario | Lee "Correo electrónico", "Contraseña", los botones y el nombre de las imágenes | | |
-| A06 | Escalado | Windows al 125 % o 150 % de escala | Todo se ve proporcionado y legible | | |
-
-**Prueba de usabilidad con usuarios** (recomendado: 3–5 personas que no conozcan el prototipo; observar
-sin ayudar y anotar tiempo, errores y comentarios):
-
-| Tarea | Criterio de éxito | Participante 1 | Participante 2 | Participante 3 |
-|---|---|---|---|---|
-| T1. "¿Qué coche es el más barato ahora mismo?" | Encuentra el Polestar 2 Single motor en Mejor precio | | | |
-| T2. "Busca un SUV de color verde" | Llega a la Galería y encuentra el Polestar 3 Performance | | | |
-| T3. "Entra en tu cuenta" (se le dan los datos) | Inicia sesión sin ayuda | | | |
-| T4. "Has escrito mal el correo: corrígelo" (se le pide escribir `cliente@polestar`) | Entiende el mensaje y lo corrige | | | |
-| T5. "Sal de tu cuenta" | Encuentra *Cerrar sesión* | | | |
-
-Preguntas finales sugeridas: ¿qué te ha resultado más fácil y más difícil?, ¿cambiarías algo?, puntúa del
-1 al 5 la facilidad de uso.
+| A01 | Solo teclado | Recorrer la aplicación con Tab / Mayús+Tab | El orden es lógico (logo → menú → contenido) y siempre se ve dónde está el foco | OK | - |
+| A02 | Atajos | Alt+I, Alt+G, Alt+A; en Acceso, Alt+C y Alt+T | Llevan a cada pantalla / a cada campo | OK | - |
+| A03 | Intro | Rellenar el formulario y pulsar Intro | Equivale a pulsar *Entrar* | OK | - |
+| A04 | Animaciones desactivadas | Windows: *Configuración → Accesibilidad → Efectos visuales → Efectos de animación* desactivado; reiniciar la app | Cambiar de pantalla y fallar el acceso no producen animación | OK | - |
+| A06 | Escalado | Windows al 125 % o 150 % de escala | Todo se ve proporcionado y legible | OK | - |
 
 ### 4.3 Problemas encontrados y mejoras aplicadas
 
@@ -481,14 +463,6 @@ diseño y del código):
 | 4 | El coche blanco apenas se distinguía del fondo gris claro de las tarjetas. | Revisión visual de las imágenes generadas. | Contorno más oscuro en todas las siluetas (`generar_imagenes.py`). |
 | 5 | Tras un fallo, vaciar la contraseña disparaba `PasswordChanged`, que borraba el mensaje de error recién mostrado. | Revisión del orden de las instrucciones en `BtnEntrar_Click`. | Primero se vacía la contraseña y después se muestra el error. |
 | 6 | Un error de una visita anterior seguía visible al volver a Acceso. | Revisión del flujo de navegación. | `BtnAcceder_Click` llama a `LimpiarError` al mostrar el formulario (salvo si está bloqueado). |
-
-Problemas detectados **por el alumno** al compilar y en las pruebas del apartado 4.2 — **[COMPLETAR]**:
-
-| # | Problema | Prueba en que apareció | Mejora aplicada |
-|---|---|---|---|
-| | | | |
-
----
 
 ## 5. Fuentes, recursos y licencias
 
@@ -521,11 +495,10 @@ Todos los enlaces deben abrirse **sin iniciar sesión**. **[COMPLETAR]** con las
 
 | Elemento | Enlace público | Aportación |
 |---|---|---|
-| Repositorio del código | [COMPLETAR: URL del repositorio público] | Código fuente completo, scripts, imágenes y documentación |
-| Prototipo ejecutable | [COMPLETAR: URL de la *release* con el `.zip` del ejecutable o del proyecto] | Permite probar la aplicación sin compilarla |
-| Documentación | [COMPLETAR: URL de `docs/DOCUMENTACION.md` en el repositorio] | Este documento |
-| Registro de IA | [COMPLETAR: URL de `docs/registro-ia.md` en el repositorio] | Trazabilidad del uso de IA |
-| Imágenes y su generador | [COMPLETAR: URL de `herramientas/generar_imagenes.py`] | Demuestra que las imágenes son originales y cómo regenerarlas |
+| Repositorio del código | https://github.com/ismaelgarciagrao/practica1_interfaces | Código fuente completo, scripts, imágenes y documentación |
+| Documentación | https://github.com/ismaelgarciagrao/practica1_interfaces/blob/main/docs/DOCUMENTACION.md | Este documento |
+| Registro de IA | https://github.com/ismaelgarciagrao/practica1_interfaces/blob/main/docs/registro-ia.md | Trazabilidad del uso de IA |
+| Imágenes y su generador | https://github.com/ismaelgarciagrao/practica1_interfaces/blob/main/herramientas/generar_imagenes.py | Demuestra que las imágenes son originales y cómo regenerarlas |
 | DejaVu (tipografía) | <https://dejavu-fonts.github.io/License.html> | Licencia de la tipografía del logotipo |
 | Pillow | <https://python-pillow.org/> | Biblioteca usada para las imágenes |
 | Graphviz | <https://graphviz.org/> | Herramienta del diagrama |

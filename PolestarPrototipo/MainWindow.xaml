@@ -179,7 +179,7 @@
                                     <TextBlock Text="Polestar 5" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="Gran turismo eléctrico · 4 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 650 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 119.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 110.000 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -195,7 +195,7 @@
                                     <TextBlock Text="Polestar 4" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="SUV coupé eléctrico · 5 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 600 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 62.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 59.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -211,7 +211,7 @@
                                     <TextBlock Text="Polestar 3" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="SUV eléctrico · 5 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 630 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 82.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 85.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -234,8 +234,8 @@
                                     </Border>
                                     <TextBlock Text="Polestar 2 Single motor" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="Berlina eléctrica · 5 plazas" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
-                                    <TextBlock Text="Antes 49.900 €" Style="{StaticResource TextoSecundario}" TextDecorations="Strikethrough"/>
-                                    <TextBlock Text="Ahora 44.900 €" Style="{StaticResource TextoPrecio}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="Antes 52.500 €" Style="{StaticResource TextoSecundario}" TextDecorations="Strikethrough"/>
+                                    <TextBlock Text="Ahora 45.900 €" Style="{StaticResource TextoPrecio}" Margin="0,2,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -252,8 +252,8 @@
                                     </Border>
                                     <TextBlock Text="Polestar 2 Dual motor" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="Berlina eléctrica · tracción total" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
-                                    <TextBlock Text="Antes 55.900 €" Style="{StaticResource TextoSecundario}" TextDecorations="Strikethrough"/>
-                                    <TextBlock Text="Ahora 51.900 €" Style="{StaticResource TextoPrecio}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="Antes 53.600 €" Style="{StaticResource TextoSecundario}" TextDecorations="Strikethrough"/>
+                                    <TextBlock Text="Ahora 50.500 €" Style="{StaticResource TextoPrecio}" Margin="0,2,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -284,7 +284,7 @@
                                     <TextBlock Text="Polestar 2 Single motor" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="Berlina eléctrica · color plata" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 650 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 44.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 40.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -302,7 +302,7 @@
                                     <TextBlock Text="Polestar 2 Dual motor" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="Berlina eléctrica · color negro" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 590 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 51.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 49.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -318,7 +318,7 @@
                                     <TextBlock Text="Polestar 3" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="SUV eléctrico · color azul" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 630 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 82.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 85.200 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -334,7 +334,7 @@
                                     <TextBlock Text="Polestar 3 Performance" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="SUV eléctrico deportivo · color verde" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 560 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 92.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 92.500 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -350,7 +350,7 @@
                                     <TextBlock Text="Polestar 4" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="SUV coupé eléctrico · color blanco" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 600 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 62.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 59.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -366,7 +366,7 @@
                                     <TextBlock Text="Polestar 5" Style="{StaticResource TextoSeccion}"/>
                                     <TextBlock Text="Gran turismo eléctrico · color cobre" Style="{StaticResource TextoSecundario}" Margin="0,2,0,10"/>
                                     <TextBlock Text="Autonomía: hasta 650 km" Style="{StaticResource TextoNormal}"/>
-                                    <TextBlock Text="Desde 119.900 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
+                                    <TextBlock Text="Desde 110.000 €" Style="{StaticResource TextoPrecio}" Margin="0,10,0,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -397,11 +397,34 @@
                                      AutomationProperties.HelpText="Ejemplo: nombre@dominio.es"/>
                             <TextBlock Text="Ejemplo: nombre@dominio.es" Style="{StaticResource TextoSecundario}" Margin="0,4,0,0"/>
 
-                            <Label Content="Con_traseña" Target="{Binding ElementName=TxtContrasena}"
+                            <Label x:Name="EtiquetaContrasena" Content="Con_traseña" Target="{Binding ElementName=TxtContrasena}"
                                    Style="{StaticResource TextoEtiquetaCampo}"/>
-                            <PasswordBox x:Name="TxtContrasena" Style="{StaticResource CampoContrasena}" MaxLength="64"
-                                         PasswordChanged="TxtContrasena_PasswordChanged"
-                                         AutomationProperties.Name="Contraseña"/>
+                            
+                            <!-- Contraseña con botón para mostrarla u ocultarla -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Campo normal: oculta lo que se escribe -->
+                                <PasswordBox x:Name="TxtContrasena" Grid.Column="0" Style="{StaticResource CampoContrasena}" MaxLength="64"
+                                            PasswordChanged="TxtContrasena_PasswordChanged"
+                                            AutomationProperties.Name="Contraseña"/>
+
+                                <!-- Campo alternativo, en el mismo sitio: muestra la contraseña. Oculto al principio. -->
+                                <TextBox x:Name="TxtContrasenaVisible" Grid.Column="0" Style="{StaticResource CampoTexto}" MaxLength="64"
+                                        Visibility="Collapsed"
+                                        TextChanged="TxtContrasenaVisible_TextChanged"
+                                        AutomationProperties.Name="Contraseña visible"/>
+
+                                <!-- Botón que se queda pulsado (ToggleButton): pulsado = contraseña visible -->
+                                <ToggleButton x:Name="BtnVerContrasena" Grid.Column="1" Content="Mostrar"
+                                            Width="80" Margin="8,0,0,0" Cursor="Hand"
+                                            ToolTip="Mostrar u ocultar la contraseña"
+                                            AutomationProperties.Name="Mostrar contraseña"
+                                            Click="BtnVerContrasena_Click"/>
+                            </Grid>
 
                             <!-- Único mensaje de error: oculto hasta que hace falta -->
                             <Border x:Name="ZonaError" Visibility="Collapsed" Margin="0,16,0,0" Padding="12,10"

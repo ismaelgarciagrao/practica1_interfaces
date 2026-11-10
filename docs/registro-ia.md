@@ -18,8 +18,7 @@
 **Datos personales:** los prompts no contenían datos personales, credenciales ni información confidencial.
 El documento adjunto (`instrucciones.md`) es un documento con instrucciones sobre las especificaciones de la práctica.
 
-**Evidencia pública de la conversación:** [COMPLETAR: enlace público a la conversación de claude.ai,
-generado con la opción *Compartir*; si no se publica, indicar el motivo].
+**Evidencia pública de la conversación:** https://claude.ai/share/27622429-5090-4ef4-8a74-3b6e552887a3.
 
 ## 3. Material generado y limitaciones
 
@@ -61,27 +60,27 @@ Tampoco pudo hacer pruebas con usuarios ni publicar el repositorio: los enlaces 
 
 | Aspecto | Qué se comprobó y cómo | Resultado o cambios |
 |---|---|---|
-| Funciona: compila, se ejecuta y la navegación va bien | | |
-| Usabilidad (pruebas del apartado 4.2 de la documentación) | | |
-| Accesibilidad (teclado, contraste) | | |
-| Seguridad del login | | |
-| Propiedad intelectual (logotipo, imágenes, datos) | | |
-| Cumple todos los requisitos del enunciado | | |
-| Entiendo y sé explicar cada parte del XAML y del C# | | |
+| Funciona: compila, se ejecuta y la navegación va bien | El proyecto compila, se ejecuta y la navegación con el ratón es correcta. | Aceptado |
+| Usabilidad (pruebas del apartado 4.2 de la documentación) | Hice algunas pruebas para comprobar la facilidad de uso del prototipo y no hubo ningún problema, es sencillo encontrar cada apartado o iniciar sesión. | Aceptado |
+| Accesibilidad (teclado, contraste) | Los colores se diferencian bien, y se puede navegar haciendo uso del teclado por las diferentes secciones del prototipo. | Aceptado |
+| Seguridad del login | Seguridad básica, tienes 3 intentos hasta que se bloquea. Además, comprueba el formato del correo (si tiene @ o ., y la contraseña no es visible.) | Aceptado |
+| Propiedad intelectual (logotipo, imágenes, datos) | En la primera version son generados por IA, así que se han revisado y modificado (menos las imágenes y el logo, que no voy a poner el original por si hubiera algún problema legal) | Modificado |
+| Cumple todos los requisitos del enunciado | Se han comprobado los requisitos del enunciado y la solución creada. | Aceptado |
+| Entiendo y sé explicar cada parte del XAML y del C# | En el archivo App.xaml se encuentran los colores y estilos de la aplicación. En el archivo MainWindow.xaml se encuentran las animaciones: entrada, error y banner, además de las tres partes de la pantalla: cabecera, vista general y pie de página. Aquí también se encuentran las tres secciones o pantallas, las cuales se pueden ocultar o mostrar haciendo uso de la propiedad Visibility. Si nos vamos al archivo MainWindow.xaml.cs podemos ver la algunas propiedades o datos de la cuenta de demostración, además, usamos correctamente la inicialización del prototipo y definimos funciones simples para cada funcionalidad del mismo. | Aceptado |
 
 ## 5. Contribución del alumno
 
 | Elemento generado | Aceptado, modificado o descartado | Por qué |
 |---|---|---|
-| Colores y estilos (`App.xaml`) | | |
-| Estructura de la ventana y cabecera (`MainWindow.xaml`) | | |
-| Pantalla de Inicio (banner, Novedades, Mejor precio) | | |
-| Pantalla de Galería | | |
-| Pantalla de Acceso y gestión de errores | | |
-| Animaciones (3 `Storyboard`) | | |
-| Código de navegación y login (`MainWindow.xaml.cs`) | | |
-| Imágenes y `generar_imagenes.py` | | |
-| `contraste.py` | | |
-| `verificar_xaml.py` | | |
-| Diagrama de navegación | | |
-| Documentación y plan de pruebas | | |
+| Colores y estilos (`App.xaml`) | Colores elegidos por mí, estilos generados por IA (Aceptados) | Buen contraste, colores no molestos y textos legibles fácilmente. |
+| Estructura de la ventana y cabecera (`MainWindow.xaml`) | Aceptado | Cabecera bien estructurada, simple y efectiva. |
+| Pantalla de Inicio (banner, Novedades, Mejor precio) | Aceptado | Pantalla simple, fácil de usar y sin distracciones. |
+| Pantalla de Galería | Aceptado | Pantalla simple, fácil de usar y sin distracciones. |
+| Pantalla de Acceso y gestión de errores | Modificado | Añadido un botón para mostrar u ocultar la contraseña. |
+| Animaciones (3 `Storyboard`) | Aceptado | Animaciones simples, no molestan ni distraen. |
+| Código de navegación y login (`MainWindow.xaml.cs`) | Aceptado | Hice varias pruebas manualmente y entiendo qué hace cada método. |
+| Imágenes y `generar_imagenes.py` | Aceptado | Imágenes adecuadas y script útil para generarlas. |
+| `contraste.py` | Aceptado | Script útil para comprobar contraste de colores. |
+| `verificar_xaml.py` | Aceptado | Script útil para realizar comprobaciones estáticas del proyecto.  |
+| Diagrama de navegación | Aceptado | Flujo de navegación correcto. |
+| Documentación y plan de pruebas | Aceptado | Pruebas realizadas y con resultado correcto. Documentación clara y bien redactada. |

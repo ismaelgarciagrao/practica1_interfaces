@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -14,7 +15,7 @@ namespace PolestarPrototipo
         // ---- Datos de la cuenta de demostración (prototipo: no hay base de datos) ----
         private const string CorreoDemo = "cliente@polestar.es";
         private const string ContrasenaDemo = "Polestar2026";
-        private const string NombreDemo = "Ana";
+        private const string NombreDemo = "Usuario";
         private const int MaxIntentos = 3;
 
         private int intentosFallidos = 0;
@@ -103,6 +104,11 @@ namespace PolestarPrototipo
 
         private void BtnEntrar_Click(object sender, RoutedEventArgs e)
         {
+            if (BtnVerContrasena.IsChecked == true)
+            {
+                TxtContrasena.Password = TxtContrasenaVisible.Text;
+            }
+
             LimpiarError();
             string correo = TxtCorreo.Text.Trim();
             string contrasena = TxtContrasena.Password;
@@ -153,7 +159,7 @@ namespace PolestarPrototipo
             BtnAcceder.Content = "Cerrar _sesión";
             BtnAcceder.ToolTip = "Cerrar la sesión (Alt+S)";
 
-            MessageBox.Show("¡Bienvenida, " + NombreDemo + "!\n\nHas iniciado sesión correctamente.",
+            MessageBox.Show("¡Bienvenido, " + NombreDemo + "!\n\nHas iniciado sesión correctamente.",
                             "Polestar", MessageBoxButton.OK, MessageBoxImage.Information);
             MostrarPantalla(ZonaInicio, BtnInicio, "Inicio");
         }
@@ -236,6 +242,63 @@ namespace PolestarPrototipo
         private void TxtContrasena_PasswordChanged(object sender, RoutedEventArgs e)
         {
             LimpiarError();
+        }
+
+        private void TxtContrasenaVisible_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TxtContrasena.Password != TxtContrasenaVisible.Text)
+            {
+                TxtContrasena.Password = TxtContrasenaVisible.Text;
+            }
+            LimpiarError();
+        }
+ 
+        private void BtnVerContrasena_Click(object sender, RoutedEventArgs e)
+        {
+            PonerContrasenaVisible(BtnVerContrasena.IsChecked == true);
+ 
+            // El cursor vuelve al campo que ahora se ve, para seguir escribiendo
+            if (BtnVerContrasena.IsChecked == true)
+            {
+                TxtContrasenaVisible.Focus();
+                TxtContrasenaVisible.CaretIndex = TxtContrasenaVisible.Text.Length;
+            }
+            else
+            {
+                TxtContrasena.Focus();
+            }
+        }
+ 
+        /// <summary>
+        /// Cambia qué campo se ve en el mismo sitio (PasswordBox o TextBox), el texto
+        /// del botón, su nombre accesible y a qué campo lleva el atajo Alt+T.
+        /// </summary>
+        private void PonerContrasenaVisible(bool mostrar)
+        {
+            if (mostrar)
+            {
+                TxtContrasenaVisible.Text = TxtContrasena.Password;
+                TxtContrasenaVisible.Visibility = Visibility.Visible;
+                TxtContrasena.Visibility = Visibility.Collapsed;
+                BtnVerContrasena.Content = "Ocultar";
+                AutomationProperties.SetName(BtnVerContrasena, "Ocultar contraseña");
+                EtiquetaContrasena.Target = TxtContrasenaVisible;
+            }
+            else
+            {
+                TxtContrasena.Visibility = Visibility.Visible;
+                TxtContrasenaVisible.Visibility = Visibility.Collapsed;
+                BtnVerContrasena.Content = "Mostrar";
+                AutomationProperties.SetName(BtnVerContrasena, "Mostrar contraseña");
+                EtiquetaContrasena.Target = TxtContrasena;
+            }
+        }
+ 
+        /// <summary>El campo de contraseña que se está viendo (para marcar errores y dar el foco).</summary>
+        private Control CampoContrasenaActivo()
+        {
+            if (TxtContrasenaVisible.Visibility == Visibility.Visible) return TxtContrasenaVisible;
+            return TxtContrasena;
         }
 
         private void CerrarSesion()
